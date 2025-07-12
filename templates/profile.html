@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ user.username }}'s Profile - StackIt</title>
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+  <div class="navbar">
+    <h1 class="logo">Stack<span class="blue">It</span></h1>
+    <div class="user-menu">
+      <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+      <a href="{% url 'ask_question' %}" class="ask-link">Ask Question</a>
+      <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+  </div>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <div class="profile-image">
+        <img src="{% static 'images/profile.jpg' %}" alt="Profile">
+      </div>
+      <div class="profile-info">
+        <h1>{{ user.username }}</h1>
+        <p class="email">{{ user.email }}</p>
+        <p class="join-date">Member since {{ user.date_joined|date:"M Y" }}</p>
+      </div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat-item">
+        <span class="stat-number">{{ questions.count }}</span>
+        <span class="stat-label">Questions</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">0</span>
+        <span class="stat-label">Answers</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">0</span>
+        <span class="stat-label">Reputation</span>
+      </div>
+    </div>
+
+    <div class="user-questions">
+      <h2>My Questions</h2>
+      {% if questions %}
+        {% for question in questions %}
+        <div class="question-item">
+          <h3><a href="{% url 'question_detail' question.id %}">{{ question.title }}</a></h3>
+          <p>{{ question.description|truncatewords:30 }}</p>
+          <div class="question-meta">
+            <span class="date">{{ question.created_at|date:"M d, Y" }}</span>
+            {% if question.tags %}
+              <span class="tags">{{ question.tags }}</span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="no-questions">
+          <p>You haven't asked any questions yet.</p>
+          <a href="{% url 'ask_question' %}" class="ask-btn">Ask Your First Question</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StackIt - Login & Signup</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <input type="checkbox" id="flip">
+    <div class="cover">
+      <div class="front">
+        <div class="text">
+          <h1>Welcome to<br><span>Stack<span class="blue">It</span></span></h1>
+          <p>Your place to ask, answer, and connect</p>
+        </div>
+      </div>
+      <div class="back">
+        <div class="text">
+          <h1>Join<br><span>Stack<span class="blue">It</span></span></h1>
+          <p>One account, unlimited answers</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="forms">
+      <div class="form-content">
+        <div class="login-form">
+          <form id="loginForm">
+            <h2>Login</h2>
+            <div class="input-box">
+              <input type="text" name="username" required>
+              <label>Username</label>
+            </div>
+            <div class="input-box">
+              <input type="password" name="password" required>
+              <label>Password</label>
+            </div>
+            <div class="button">
+              <button type="submit">Login</button>
+            </div>
+            <p class="switch-text">Don't have an account? <label for="flip">Sign up</label></p>
+          </form>
+        </div>
+
+        <div class="signup-form">
+          <form id="signupForm">
+            <h2>Sign Up</h2>
+            <div class="input-box">
+              <input type="text" name="username" required>
+              <label>Username</label>
+            </div>
+            <div class="input-box">
+              <input type="email" name="email" required>
+              <label>Email</label>
+            </div>
+            <div class="input-box">
+              <input type="password" name="password" required>
+              <label>Password</label>
+            </div>
+            <div class="button">
+              <button type="submit">Sign Up</button>
+            </div>
+            <p class="switch-text">Already have an account? <label for="flip">Login</label></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Login form handling
+    document.getElementById("loginForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const username = this.username.value;
+      const password = this.password.value;
+
+      try {
+        const res = await fetch("{% url 'login_api' %}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        if (data.status === "success") {
+          window.location.href = "{% url 'home' %}";
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        alert("Error during login. Please try again.");
+      }
+    });
+
+    // Signup form handling
+    document.getElementById("signupForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const username = this.username.value;
+      const email = this.email.value;
+      const password = this.password.value;
+
+      try {
+        const res = await fetch("{% url 'register_api' %}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+        if (data.status === "success") {
+          window.location.href = "{% url 'home' %}";
+        } else {
+          alert(data.message);
+        }
+      } catch (error) {
+        alert("Error during registration. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>

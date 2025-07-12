@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ question.title }} - StackIt</title>
+  <link rel="stylesheet" href="{% static 'css/queDtl.css' %}">
+</head>
+<body>
+  <div class="navbar">
+    <h1 class="logo">Stack<span class="blue">It</span></h1>
+    <div class="user-menu">
+      <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="profile-link">Profile</a>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="login-btn">Login</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="question-container">
+    <div class="question-header">
+      <h1>{{ question.title }}</h1>
+      <div class="question-meta">
+        <span class="author">Asked by {{ question.user.username }}</span>
+        <span class="date">{{ question.created_at|date:"M d, Y at H:i" }}</span>
+        {% if question.tags %}
+          <span class="tags">{{ question.tags }}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="question-content">
+      <div class="question-body">
+        {{ question.description|linebreaks }}
+      </div>
+    </div>
+
+    <div class="answers-section">
+      <h2>Answers</h2>
+      <div class="no-answers">
+        <p>No answers yet. Be the first to answer this question!</p>
+        {% if user.is_authenticated %}
+          <a href="#" class="answer-btn">Add Answer</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="answer-btn">Login to Answer</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add answer functionality can be implemented here
+    document.querySelector('.answer-btn')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      // TODO: Implement answer form
+      alert('Answer functionality coming soon!');
+    });
+  </script>
+</body>
+</html>

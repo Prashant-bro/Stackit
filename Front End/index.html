@@ -1,0 +1,61 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StackIt - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+  fetch("http://127.0.0.1:8000/questions/")
+    .then(res => res.json())
+    .then(data => {
+      console.log("Questions:", data);
+      const container = document.getElementById("questions");
+      data.forEach(q => {
+        const el = document.createElement("div");
+        el.innerHTML = `<div><h3>${q.title}</h3><p>${q.description}</p></div>`;
+        container.appendChild(el);
+      });
+    });
+</script>
+</head>
+<body>
+  <div id="questions"></div>
+
+  <div class="navbar">
+    <h1 class="logo">Stack<span class="blue">It</span></h1>
+    <a href="login.html" class="login-btn">Login</a>
+  </div>
+
+  <div class="top-bar">
+    <a href="ask.html" class="ask-btn">Ask New Question</a>
+    <div class="filters">
+      <button>Newest</button>
+      <button>Unanswered</button>
+      <button>More</button>
+    </div>
+    <input type="text" class="search-box" placeholder="Search...">
+  </div>
+
+  <div class="question-list">
+    {% for question in questions %}
+    <div class="question-card">
+      <h2>{{ question.title }}</h2>
+      <p>{{ question.description[:100] }}...</p>
+      <div class="meta">
+        <span>{{ question.username }} • {{ question.tags }}</span>
+        <span>{{ question.answer_count }} ans</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    <!-- page numbers -->
+    {% for p in pages %}
+    <a href="/?page={{ p }}">{{ p }}</a>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

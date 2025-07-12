@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StackIt - My Profile</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+  <div class="navbar">
+    <h1 class="logo">Stack<span class="blue">It</span></h1>
+    <a href="index.html" class="home-btn">Home</a>
+  </div>
+
+  <div class="profile-container">
+    <div class="profile-card">
+      <h2>My Profile</h2>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="profile-img-wrapper">
+          <img src="profile.jpg" alt="Profile Image" class="profile-preview">
+        </div>
+
+        <label class="form-label">Change Profile Image:</label>
+        <input type="file" name="profile_image" accept="image/*" class="form-input">
+
+        <label class="form-label">Username:</label>
+        <input type="text" name="username" value="{{ session.get('username', '') }}" class="form-input">
+
+        <label class="form-label">Email:</label>
+        <input type="email" name="email" value="{{ session.get('email', '') }}" class="form-input">
+
+        <button type="submit" class="submit-btn">Update Profile</button>
+        <a href="/logout" class="logout-link">Logout</a>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ question[1] }}</title>
+  <link rel="stylesheet" href="queDtl.css">
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+</head>
+<body>
+
+  <div class="navbar">
+  <h1 class="logo">Stack<span class="blue">It</span></h1>
+
+  <div class="nav-buttons">
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">Home</a>
+    <!-- Profile Image Button -->
+    <a href="profile.html" class="profile-btn">
+      <img src="profile.jpg" alt="Profile">
+    </a>
+
+    
+  </div>
+</div>
+
+
+  <div class="question-box">
+    <h2>{{ question[1] }}</h2>
+    <p><strong>By:</strong> {{ question[4] }}</p>
+    <div class="desc-box">{{ question[2]|safe }}</div>
+    <p><strong>Tags:</strong> {{ question[3] }}</p>
+  </div>
+
+  <hr>
+
+  <div class="answers-box">
+    <h3>{{ answers|length }} Answer{{ 's' if answers|length != 1 else '' }}</h3>
+    {% for ans in answers %}
+      <div class="answer">
+        <p>{{ ans[2]|safe }}</p>
+        <p class="answer-meta">— {{ ans[3] }}</p>
+
+  <div class="vote-box">
+    <a href="/vote/{{ ans[0] }}/upvote" class="vote-btn">⬆</a>
+    <span class="vote-count">{{ ans[4] }}</span>
+    <a href="/vote/{{ ans[0] }}/downvote" class="vote-btn">⬇</a>
+  </div>
+</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <hr>
+
+  <div class="answer-form">
+    <h3>Submit Your Answer</h3>
+    <form method="POST">
+      <textarea id="answer" name="answer"></textarea><br><br>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#answer'))
+      .catch(error => {
+          console.error(error);
+      });
+  </script>
+
+</body>
+</html>

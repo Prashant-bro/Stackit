@@ -1,0 +1,54 @@
+<!-- templates/ask.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ask a Question - StackIt</title>
+  <link rel="stylesheet" href="ask.css">
+  <!-- TinyMCE Rich Text Editor -->
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+</head>
+<body>
+
+  <div class="navbar">
+  <h1 class="logo">Stack<span class="blue">It</span></h1>
+
+  <div class="nav-buttons">
+    <!-- Home Button -->
+    <a href="index.html" class="home-btn">Home</a>
+    <!-- Profile Image Button -->
+    <a href="profile.html" class="profile-btn">
+      <img src="profile.jpg" alt="Profile">
+    </a>
+
+    
+  </div>
+</div>
+
+
+  <div class="ask-container">
+    <h2>Ask New Question</h2>
+    <form method="POST">
+      <label>Title:</label><br>
+      <input type="text" name="title" required><br><br>
+
+      <label>Description:</label><br>
+      <textarea id="description" name="description"></textarea><br><br>
+
+      <label>Tags (comma separated):</label><br>
+      <input type="text" name="tags"><br><br>
+
+      
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+  ClassicEditor
+    .create(document.querySelector('#description'))
+    .catch(error => {
+        console.error(error);
+    });
+</script>
+  </div>
+
+</body>
+</html>

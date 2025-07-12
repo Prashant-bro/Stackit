@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.container {
+  width: 750px;
+  height: 500px;
+  position: relative;
+  perspective: 1000px;
+}
+
+#flip {
+  display: none;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: absolute;
+  z-index: 2;
+  transition: transform 1s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+#flip:checked ~ .cover {
+  transform: rotateY(180deg);
+}
+
+.cover .front, .cover .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #1c1c2e;
+  color: #fff;
+  backface-visibility: hidden;
+}
+
+.cover .back {
+  transform: rotateY(180deg);
+}
+
+.cover .text {
+  max-width: 300px;
+}
+
+.cover h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.cover .blue {
+  color: #61dafb;
+}
+
+/* Forms */
+.forms {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.form-content {
+  width: 200%;
+  display: flex;
+  transition: transform 1s ease-in-out;
+}
+
+#flip:checked ~ .forms .form-content {
+  transform: translateX(-50%);
+}
+
+.login-form, .signup-form {
+  width: 50%;
+  padding: 40px;
+}
+
+form h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  outline: none;
+}
+
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 5px;
+  color: #666;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-box input:focus + label,
+.input-box input:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 12px;
+  color: #61dafb;
+}
+
+.button button {
+  width: 100%;
+  padding: 12px;
+  background: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button button:hover {
+  background: #218838;
+}
+
+.switch-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.switch-text label {
+  color: #007bff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.switch-text label:hover {
+  text-decoration: underline;
+}
