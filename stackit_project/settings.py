@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'stackit_db',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': '0212',
         'HOST': 'localhost',
         'PORT': '5432',
     }
